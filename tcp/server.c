@@ -16,7 +16,7 @@ int main()
  struct sockaddr_in new_addr;
  int size;
  
- if(-1==(sockfd=socket(AF_INET,SOCK_STREAM,0)))
+ if((sockfd=socket(AF_INET,SOCK_STREAM,0))<0)
  {
   perror("sock init error!\n");
   exit(1);
@@ -26,7 +26,7 @@ int main()
  my_addr.sin_addr.s_addr=INADDR_ANY;
  bzero(&(my_addr.sin_zero),sizeof(struct sockaddr_in));
  
- if(-1==bind(sockfd,(struct sockaddr *)&my_addr,sizeof(struct sockaddr)))
+ if(bind(sockfd,(struct sockaddr *)&my_addr,sizeof(struct sockaddr))<0)
  {
   perror("bind error!\n");
   exit(2);
