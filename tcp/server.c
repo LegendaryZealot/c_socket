@@ -21,6 +21,7 @@ int main()
   perror("sock init error!\n");
   exit(1);
  }
+ 
  my_addr.sin_family=AF_INET;
  my_addr.sin_port=htons(PORT);
  my_addr.sin_addr.s_addr=INADDR_ANY;
@@ -37,11 +38,11 @@ int main()
   exit(3);
  }
 
- 
 
  while(1)
  {
   size=sizeof(struct sockaddr_in);
+  printf("listen pid:%d\n",getpid());
   if(-1==(new_fd=accept(sockfd,(struct sockaddr *)&new_addr,&size)))
   {
    perror("accept error!\n");
@@ -53,6 +54,10 @@ int main()
    if(-1==send(new_fd,SERVER_GREET,sizeof(SERVER_GREET),0))
    {
     perror("send error!\n");
+   }
+   else
+   {
+       printf("pid %d send greet: %s\n",getpid(),SERVER_GREET);
    }
    close(new_fd);
    exit(0);
